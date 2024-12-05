@@ -66,5 +66,5 @@ Below is a preview of some images used in this project.
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/MEDELBOU3/SM4song.git
-   cd SM4song
+   git clone https://github.com/Simo-elb/MusicWebapp.git
+   cd SMusicWebapp
