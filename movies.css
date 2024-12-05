@@ -1,0 +1,846 @@
+:root {
+    --spotify-green: #1DB954;
+    --spotify-green1: #1db954a6;
+    
+    --spotify-black: #dadada;
+    --spotify-light-black: azure;
+    --rating-color: rgb(0, 160, 27);
+    --spotify-grey: #575757;
+    --spotify-white: #111010;
+    --text-color: black;
+    --hover-bg: white;
+    --modal-controls-bg: rgba(0, 0, 0, 0.4);
+    --hover-bg1: white;
+    --header-bg: rgba(220, 255, 245, 0.87);
+    --hover-bg2: #dfdddd;
+    --hover-bg3: #eff5f4;
+    --transition-speed: 0.3s;
+    --card-background: rgba(255, 246, 246, 0.8);
+    --meta-bg: rgba(255, 189, 124, 0.616);
+    --playlist-bg: #e7eedf;
+    --art-bg: silver;
+    --tab-countent: rgba(255, 255, 255, 0.4);
+    --active-shadow: 0 0 8px #2be0d7,
+                     0 0 25px #2be0d7,
+                     0 0 40px #2be0d7;
+    --active-bg: linear-gradient(to bottom left, rgb(189, 65, 189), rgb(3, 151, 209), rgb(72, 233, 233));
+}
+
+.dark-mode {
+    --spotify-green: #1DB954;
+    --spotify-black: #191414;
+    --spotify-light-black: #282828;
+    --spotify-grey: #B3B3B3;
+    --spotify-white: #FFFFFF;
+    --text-color: #fff;
+    --hover-bg: #333;
+    --hover-bg1: #111;
+    --modal-controls-bg: rgba(255, 255, 255, 0.1);
+    --spotify-green1: #00e6508f;
+    --header-bg: rgba(21, 54, 44, 0.87);
+    --hover-bg2: #3E3E3E;
+    --hover-bg3: #122020;
+    --card-background: rgba(25, 20, 20, 0.8);
+    --meta-bg: rgba(73, 73, 73, 0.3);
+    --playlist-bg: #110707;
+    --art-bg: rgb(19, 18, 18);
+    --tab-countent: rgba(0, 0, 0, 0.4);
+    --active-shadow: 0 0 8px #1db985,
+                     0 0 25px #1d88b9,
+                     0 0 40px #098133cc;
+    --active-bg: linear-gradient(to bottom right, rgb(173, 16, 173), rgb(53, 172, 53), rgb(235, 134, 151));
+}
+
+
+/* Modal Styles */
+.side-modal {
+    position: fixed;
+    top: 0;
+    right: -100%;
+    width: 100%;
+    max-width: 100%;
+    height: 100vh;
+    background: var(--spotify-black);
+    transition: right var(--transition-speed);
+    z-index: 1001;
+    overflow-y: none;
+}
+
+.main-cont{
+    overflow-y: auto;
+    height: auto;
+    height: 85%;
+    padding: 10px;
+    background-color: var(--spotify-black);
+
+}
+.side-modal.active {
+    right: 0;
+}
+
+.modal-header {
+    padding: 20px;
+    background: var(--header-bg);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.modal-header h2 {
+    color: var(--text-color);
+    margin: 0;
+}
+
+.modal-controls button {
+    background: var(--modal-controls-bg);
+    border: none;
+    color: var(--text-color);
+    font-size: 24px;
+    cursor: pointer;
+    padding: 10px 15px;
+}
+
+
+
+.modal-search {
+    padding: 20px;
+    display: flex;
+    gap: 10px;
+}
+
+.modal-search input {
+    flex: 1;
+    padding: 10px;
+    border: 1px solid var(--spotify-grey);
+    border-radius: 4px;
+    background: var(--spotify-light-black);
+    color: var(--text-color);
+}
+
+.modal-search button {
+    padding: 10px 20px;
+    background: var(--spotify-green);
+    color: var(--spotify-white);
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+/* Movies Tabs */
+.movies-tabs {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    padding: 15px;
+    background: var(--header-bg);
+    position: sticky;
+    top: 0;
+    z-index: 1;
+}
+
+.tab-btn {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 20px;
+    background: var(--hover-bg);
+    color: var(--text-color);
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.tab-btn.active {
+    background: var(--spotify-green);
+    color: white;
+    box-shadow: var(--active-shadow);
+}
+
+
+.movie-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: 15px;
+    padding: 15px;
+}
+
+.movie-card {
+    background: var(--card-background);
+    border-radius: 8px;
+    overflow: hidden;
+    max-width: 180px;
+    max-height: 350px;
+    transition: transform var(--transition-speed);
+}
+
+.movie-card:hover {
+    transform: translateY(-5px);
+}
+
+.movie-poster {
+    position: relative;
+    aspect-ratio: 3/4;
+}
+
+.movie-poster img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.movie-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity var(--transition-speed);
+}
+
+.movie-card:hover .movie-overlay {
+    opacity: 1;
+}
+
+.movie-details-btn {
+    padding: 10px 20px;
+    background: var(--spotify-green);
+    color: var(--spotify-white);
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+}
+
+.movie-info {
+    padding: 15px;
+}
+
+.movie-info h3 {
+    margin: 0;
+    color: var(--text-color);
+    overflow: hidden;
+    font-size: 1rem;
+    height: 30px;
+    width: 145px;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+}
+
+.movie-meta {
+    background-color: var(--meta-bg);
+    padding: 5px 4px;
+    border-radius: 10px;
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+    color: var(--rating-color);
+}
+
+/* Movie Details Modal */
+.movie-details-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1002;
+}
+
+
+.details-content {
+    position: relative;
+    width: 90%;
+    max-width: 1000px;
+    max-height: 90vh;
+    background: var(--spotify-light-black);
+    border-radius: 8px;
+    overflow-y: auto;
+}
+
+.movie-backdrop {
+    height: 300px;
+    background-size: cover;
+    background-position: center;
+    position: relative;
+}
+
+.backdrop-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to bottom, transparent, var(--spotify-light-black));
+}
+
+.details-main {
+    display: flex;
+    gap: 30px;
+    padding: 30px;
+    margin-top: -100px;
+    position: relative;
+}
+
+.detail-poster {
+    width: 300px;
+    height: 500px;
+    border-radius: 8px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+}
+
+.detail-info {
+    flex: 1;
+    color: var(--text-color);
+}
+
+.close-details {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: rgba(255, 255, 255, 0.1);
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    transition: all 0.3s ease;
+    color: var(--text-color);
+    z-index: 100;
+}
+
+.close-details:hover{
+    background: rgba(255, 0, 0, 0.8);
+    transform: rotate(90deg);
+}
+.genres {
+    display: flex;
+    gap: 10px;
+    margin: 15px 0;
+}
+
+.genres span {
+    padding: 5px 15px;
+    background: var(--spotify-green1);
+    border-radius: 15px;
+    font-size: 0.9rem;
+}
+
+.play-trailer {
+    margin-top: 20px;
+    padding: 10px 20px;
+    background: var(--spotify-green);
+    color: var(--spotify-white);
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+}
+
+/* Trailer Modal */
+.trailer-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.9);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1003;
+}
+
+.trailer-content {
+    position: relative;
+    width: 90%;
+    max-width: 900px;
+    aspect-ratio: 16/9;
+}
+
+.close-trailer {
+    position: absolute;
+    top: -24;
+    right: -42px;
+    background: rgba(255, 255, 255, 0.1);
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    width: 40px;
+    height: 40px;
+    size: 24px;
+    color: var(--text-color);
+    border-radius: 50%;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    transition: all 0.3s ease;
+    color: var(--text-color);
+    z-index: 100;
+}
+.close-trailer:hover{
+    background-color: rgba(255, 0, 0, 0.753);
+    transform: rotate(90deg);
+}
+
+/* تعديل أنماط المودال */
+.loading {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: #ffffff;
+    font-size: 1.2em;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+  }
+  
+  .spinner {
+    width: 50px;
+    height: 50px;
+    border: 6px solid rgba(255, 255, 255, 0.3);
+    border-top: 6px solid var(--spotify-green);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin-bottom: 15px;
+  }
+  
+  @keyframes spin {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+  
+  .loading span {
+    animation: fadeText 1.5s ease-in-out infinite;
+  }
+  
+  @keyframes fadeText {
+    0%, 100% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0.5;
+    }
+  }
+
+
+.side-modal.with-news {
+    width: 55%; /* نصف العرض عند فتح الأخبار */
+    transition: all var(--transition-speed);
+}
+
+.news-modal {
+    position: fixed;
+    top: 0;
+    right: -100%;
+    width: 45%;
+    height: 100vh;
+    background: var(--spotify-black) ;
+    z-index: 1000;
+    overflow-y: auto;
+    transition: right var(--transition-speed);
+}
+
+.news-modal.visible {
+    right: 0;
+}
+
+/* تعديل موقع المودال عندما تكون الأخبار مفتوحة */
+.side-modal.with-news {
+    right: 45%; /* يتحرك لليسار بمقدار عرض مودال الأخبار */
+}
+
+
+/* تحسين مظهر البطاقات */
+.news-content{
+    padding: 10px;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+}
+.news-card {
+    margin: 15px;
+    padding: 15px;
+    background: linear-gradient(to bottom right, var(--spotify-black), var(--hover-bg),var(--spotify-green1));
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease;
+}
+
+.news-card:hover {
+    transform: translateY(-5px);
+}
+
+.news-image {
+    height: 180px;
+    background-size: cover;
+    background-position: center;
+    border-radius: 8px;
+    margin-bottom: 15px;
+}
+
+.news-details h3 {
+    color: var(--text-color);
+    margin-bottom: 10px;
+    font-size: 1.1em;
+    line-height: 1.4;
+}
+
+.news-details p {
+    color: var(--spotify-grey);
+    font-size: 0.9em;
+    margin-bottom: 15px;
+    line-height: 1.5;
+}
+
+.news-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 10px;
+    border-top: 1px solid var(--spotify-grey);
+}
+
+.news-actions button {
+    background: none;
+    border: none;
+    color: var(--spotify-green);
+    cursor: pointer;
+    padding: 8px;
+    transition: all 0.2s ease;
+}
+
+.news-actions button:hover {
+    transform: scale(1.1);
+    color: var(--spotify-green);
+}
+
+.read-more {
+    color: var(--spotify-green);
+    text-decoration: none;
+    padding: 6px 12px;
+    border-radius: 15px;
+    background: var(--hover-bg);
+    transition: all 0.2s ease;
+}
+
+.read-more:hover {
+    background: var(--spotify-green);
+    color: var(--spotify-white);
+}
+
+/* تحسين شريط التبويبات */
+.news-tabs {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    padding: 15px;
+    background: var(--header-bg);
+    position: sticky;
+    top: 0;
+    z-index: 1;
+}
+
+.news-tabs .tab-btn {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 20px;
+    background: var(--hover-bg);
+    color: var(--text-color);
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.news-tabs .tab-btn.active {
+    background: var(--spotify-green);
+    color: white;
+    box-shadow: var(--active-shadow);
+}
+
+/* تحسين شريط البحث */
+.modal-search {
+    padding: 15px;
+    display: flex;
+    gap: 10px;
+    background: var(--header-bg);
+}
+
+.modal-search input {
+    flex: 1;
+    padding: 8px 15px;
+    border: none;
+    border-radius: 20px;
+    background: var(--hover-bg);
+    color: var(--text-color);
+}
+
+.modal-search button {
+    padding: 8px 15px;
+    border: none;
+    border-radius: 20px;
+    background: var(--spotify-green);
+    color: white;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.modal-search button:hover {
+    transform: scale(1.05);
+    box-shadow: var(--active-shadow);
+}
+
+/* تحسين التجاوب */
+@media (max-width: 1200px) {
+    .side-modal.with-news {
+        width: 50%;
+    }
+    .news-modal {
+        width: 50%;
+    }
+    .side-modal.with-news {
+        right: 50%;
+    }
+}
+
+@media (max-width: 768px) {
+    .side-modal.with-news {
+        width: 100%;
+        right: 100%;
+    }
+    .news-modal {
+        width: 100%;
+    }
+}
+
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .details-main {
+        flex-direction: column;
+    }
+    
+    .detail-poster {
+        width: 150px;
+        height: 250px;
+        margin: 0 auto;
+    }
+    
+    .movie-backdrop {
+        height: 200px;
+    }
+}
+
+@media (max-width: 480px) {
+    .movies-tabs {
+        flex-wrap: wrap;
+    }
+    
+    .tab-btn {
+        flex: 1;
+        text-align: center;
+    }
+}
+
+
+
+/* Sports Modal Styles */
+
+
+.side-modal.side-modal.with-sports {
+    right: 45%;
+}
+.sports-modal {
+    position: fixed;
+    top: 0;
+    right: -100%;
+    width: 45%;
+    height: 100vh;
+    background: var(--spotify-black);
+    z-index: 1000;
+    overflow-y: auto;
+    transition: right var(--transition-speed);
+    
+}
+
+.sports-modal.visible {
+    right: 0;
+}
+
+.side-modal.with-sports {
+    width: 55%; /* نصف العرض عند فتح الأخبار */
+    transition: all var(--transition-speed);
+}
+
+/* Sports Content Styles */
+.sports-tabs {
+    display: flex;
+    gap: 10px;
+    padding: 10px;
+    background: var(--header-bg);
+}
+
+.sports-content {
+    padding: 15px;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 15px;
+}
+
+/* Additional Sports Styles */
+.sport-card {
+    background: var(--hover-bg);
+    border-radius: 12px;
+    padding: 15px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+}
+
+.sport-card:hover {
+    transform: translateY(-5px);
+}
+
+.league-info {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 15px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--spotify-grey);
+}
+
+.league-logo {
+    width: 24px;
+    height: 24px;
+    object-fit: contain;
+}
+
+.match-info {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    gap: 15px;
+    align-items: center;
+}
+
+.team {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    text-align: center;
+}
+
+.team-logo {
+    width: 40px;
+    height: 40px;
+    object-fit: contain;
+}
+
+.score {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+}
+
+.time {
+    font-size: 0.8em;
+    color: var(--spotify-green);
+    font-weight: bold;
+}
+
+.result {
+    font-size: 1.2em;
+    font-weight: bold;
+    color: var(--text-color);
+}
+
+.loading {
+    text-align: center;
+    padding: 20px;
+    color: var(--text-color);
+}
+
+.error {
+    text-align: center;
+    padding: 20px;
+    color: #ff4444;
+}
+
+.no-matches {
+    text-align: center;
+    padding: 20px;
+    color: var(--text-color);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .sport-card {
+        padding: 10px;
+    }
+
+    .match-info {
+        gap: 10px;
+    }
+
+    .team-logo {
+        width: 30px;
+        height: 30px;
+    }
+
+    .team span {
+        font-size: 0.9em;
+    }
+}
+
+.section-title {
+    font-size: 1.2em;
+    font-weight: bold;
+    margin: 20px 0 10px;
+    padding: 5px 10px;
+    background: var(--card-background-lighter);
+    border-radius: 5px;
+    color: var(--spotify-green);
+}
+
+.date {
+    font-size: 0.8em;
+    color: var(--text-color-secondary);
+}
+
+.driver-info {
+    display: grid;
+    grid-template-columns: auto 1fr auto auto;
+    gap: 15px;
+    align-items: center;
+    padding: 10px;
+}
+
+.position {
+    font-weight: bold;
+    color: var(--spotify-green);
+}
+
+.circuit {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+}
+
+.location {
+    font-size: 0.8em;
+    color: var(--text-color-secondary);
+}
+
